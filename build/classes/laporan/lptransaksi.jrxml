@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="null" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="tanggalawal" class="java.lang.String"/>
+	<parameter name="tanggalakhir" class="java.lang.String"/>
+	<parameter name="jenis" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+     laporan_keuangan_transaksi.`Tanggal` AS laporan_keuangan_transaksi_Tanggal,
+     laporan_keuangan_transaksi.`Jenis_Transaksi` AS laporan_keuangan_transaksi_Jenis_Transaksi,
+     laporan_keuangan_transaksi.`Total_Pendapatan` AS laporan_keuangan_transaksi_Total_Pendapatan
+FROM
+     `laporan_keuangan_transaksi` laporan_keuangan_transaksi
+WHERE
+     STR_TO_DATE(Tanggal,'%d-%m-%Y') BETWEEN STR_TO_DATE($P{tanggalawal},'%d-%m-%Y')AND STR_TO_DATE($P{tanggalakhir},'%d-%m-%Y')
+ AND Jenis_Transaksi COLLATE utf8mb4_general_ci = $P{jenis}]]>
+	</queryString>
+	<field name="laporan_keuangan_transaksi_Tanggal" class="java.lang.String"/>
+	<field name="laporan_keuangan_transaksi_Jenis_Transaksi" class="java.lang.String"/>
+	<field name="laporan_keuangan_transaksi_Total_Pendapatan" class="java.math.BigInteger"/>
+	<variable name="sumtotal" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{laporan_keuangan_transaksi_Total_Pendapatan}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<image>
+				<reportElement x="127" y="0" width="300" height="78"/>
+				<imageExpression><![CDATA["D:\\aizat\\uibengkelbismillah\\src\\laporan\\Group 105 (1).png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="55" splitType="Stretch">
+			<staticText>
+				<reportElement x="181" y="18" width="108" height="18"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Laporan Transaksi]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="289" y="18" width="100" height="18"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{jenis}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="38" width="127" height="17"/>
+				<textElement/>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd-MM-yyyy HH:mm:ss").format(new Date())]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="21" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" backcolor="#003366"/>
+				<staticText>
+					<reportElement mode="Transparent" x="0" y="0" width="55" height="20" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[No]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="388" y="0" width="167" height="20" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Pendapatan]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="221" y="0" width="167" height="20" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Jenis Transaksi]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Transparent" x="55" y="0" width="166" height="20" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tanggal]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="21"/>
+				<textField>
+					<reportElement x="0" y="0" width="55" height="20"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<textFieldExpression><![CDATA[$V{PAGE_COUNT}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="55" y="1" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{laporan_keuangan_transaksi_Tanggal}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="235" y="1" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{laporan_keuangan_transaksi_Jenis_Transaksi}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="388" y="1" width="100" height="20"/>
+					<textElement/>
+					<textFieldExpression><![CDATA[$F{laporan_keuangan_transaksi_Total_Pendapatan}]]></textFieldExpression>
+				</textField>
+			</frame>
+		</band>
+	</detail>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<frame>
+				<reportElement mode="Opaque" x="0" y="0" width="555" height="20" backcolor="#003366"/>
+				<staticText>
+					<reportElement mode="Transparent" x="221" y="0" width="167" height="20" forecolor="#FFFFFF"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Total Pendapatan]]></text>
+				</staticText>
+			</frame>
+		</band>
+	</summary>
+</jasperReport>
